@@ -1,0 +1,40 @@
+﻿@model Libro
+
+<h3 style="color:purple">Detalles Libro: @Model.Titulo</h3>
+<p>
+    <a asp-controller="Libros" asp-action="Index" class="btn btn-dark">Back</a>
+</p>
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <img src="~/images/@Model.Portada" style="width:300px;height:300px"/>
+    </li>
+    <li class="list-group-item">
+        Titulo: @Model.Titulo
+    </li>
+    <li class="list-group-item">
+        Autor: @Model.Autor
+    </li>
+    <li class="list-group-item">
+        Editorial: @Model.Editorial
+    </li>
+    <li class="list-group-item">
+        Precio: @Model.Precio $
+    </li>
+    <li class="list-group-item">
+        Sinopsis: @Model.Resumen
+    </li>
+</ul>
+
+@if (Context.User.Identity.IsAuthenticated == true)
+{
+    <a asp-controller="Libros" asp-action="GuardarLibro" asp-route-idlibro="@Model.IdLibro" class="btn btn-info">
+        Añadir Libro
+    </a>
+}
+else
+{
+    <div style="background-color:green;color:white">
+        Si quieres añadir algo LOGUEATE bro
+    </div>
+}

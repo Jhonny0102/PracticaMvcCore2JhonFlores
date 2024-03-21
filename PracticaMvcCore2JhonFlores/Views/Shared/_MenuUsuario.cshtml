@@ -1,0 +1,32 @@
+﻿﻿@using System.Security.Claims
+@{
+    List<int> idslibrosalmacenado = Context.Session.GetObject<List<int>>("IDSLIBROS");
+}
+
+﻿@if (Context.User.Identity.IsAuthenticated == false)
+{
+    <li class="nav-item">
+        <a asp-controller="Managed" asp-action="LogIn" class="nav-link">Log In</a>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a asp-controller="Libros" asp-action="LibrosGuardamos" class="nav-link">
+            Libros:
+            @if (idslibrosalmacenado != null)
+            {
+                @idslibrosalmacenado.Count()
+            }
+        </a>
+    </li>
+    <li class="nav-item">
+        <a asp-controller="Libros" asp-action="PerfilUsuario" class="nav-link">
+            <img src="~/images/@Context.User.FindFirst("FOTO").Value" style="width:20px;height20px" />
+            Hola @Context.User.FindFirst("NOMBRE").Value
+        </a>
+    </li>
+    <li class="nav-item">
+        <a asp-controller="Managed" asp-action="LogOut" class="nav-link">Cerrar Session</a>
+    </li>
+}

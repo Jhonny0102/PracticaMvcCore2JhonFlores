@@ -1,0 +1,21 @@
+﻿﻿@using System.Security.Claims
+
+<h3>Perfil Usuario</h3>
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <img src="~/images/@Context.User.FindFirst("FOTO").Value" style="width:100px;height:100px" />
+    </li>
+    <li class="list-group-item">
+        UserName : @Context.User.FindFirst("NOMBRE").Value;
+    </li>
+    <li class="list-group-item">
+        Nombre: @Context.User.FindFirst("NOMBRE").Value;
+    </li>
+    <li class="list-group-item">
+        Apellido: @Context.User.FindFirst("APELLIDO").Value;
+    </li>
+    <li class="list-group-item">
+        Email: @Context.User.FindFirst(ClaimTypes.Email).Value;
+    </li>
+</ul>
