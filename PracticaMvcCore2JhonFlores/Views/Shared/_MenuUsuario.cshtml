@@ -12,6 +12,9 @@
 else
 {
     <li class="nav-item">
+        <a asp-controller="Libros" asp-action="PedidosUsuarios" asp-route-idusuario="@Context.User.FindFirst("ID").Value" class="nav-link">Mis Facturas</a>
+    </li>
+    <li class="nav-item">
         <a asp-controller="Libros" asp-action="LibrosGuardamos" class="nav-link">
             Libros:
             @if (idslibrosalmacenado != null)

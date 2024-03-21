@@ -59,6 +59,7 @@ namespace PracticaMvcCore2JhonFlores.Controllers
             return RedirectToAction("Index");
         }
 
+        [AuthorizeUsers]
         public async Task<IActionResult> LibrosGuardamos(int? ideliminar)
         {
             List<int> idslibros = HttpContext.Session.GetObject<List<int>>("IDSLIBROS");
@@ -80,6 +81,23 @@ namespace PracticaMvcCore2JhonFlores.Controllers
                 return View(mislibros);
             }
             return View();
+        }
+
+        [AuthorizeUsers]
+        public async Task<IActionResult> PedidosUsuarios()
+        {
+            var dato = HttpContext.User.FindFirst("ID").Value;
+            int idusuario = int.Parse(dato);
+            List<ViewPedido> mispedidos = await this.repo.GetPedidosUsuario(idusuario);
+            return View(mispedidos);
+        }
+
+        public IActionResult FinalizarCompra(int idusuario)
+        {
+            List<int> idslibros = HttpContext.Session.GetObject<List<int>>("IDSLIBROS");
+            this.repo.FinalizarCompra(idslibros,idusuario);
+            HttpContext.Session.Remove("IDSLIBROS");
+            return RedirectToAction("PedidosUsuarios");
         }
 
     }
